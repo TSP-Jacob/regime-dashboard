@@ -47,17 +47,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
-                linear-gradient(180deg, #030712 0%, #0a1120 100%);
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%), linear-gradient(180deg, #030712 0%, #0a1120 100%);
             z-index: -1;
             animation: gradientShift 20s ease infinite;
         }
 
         @keyframes gradientShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
         }
 
         /* Header */
@@ -108,18 +110,18 @@
             position: relative;
         }
 
-        .hero h1 {
-            font-size: 1.875rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #F9FAFB, #9CA3AF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            animation: fadeInUp 0.8s ease;
-            line-height: 1.4;
-            font-style: italic;
-        }
+            .hero h1 {
+                font-size: 1.875rem;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                background: linear-gradient(135deg, #F9FAFB, #9CA3AF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+                animation: fadeInUp 0.8s ease;
+                line-height: 1.4;
+                font-style: italic;
+            }
 
         .hero-subtitle {
             font-size: 1rem;
@@ -144,15 +146,15 @@
             animation: fadeInUp 0.8s ease 0.4s both;
         }
 
-        .regime-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #F9FAFB, #6B7280);
-        }
+            .regime-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #F9FAFB, #6B7280);
+            }
 
         .regime-header {
             display: flex;
@@ -210,20 +212,25 @@
             overflow: hidden;
         }
 
-        .gauge-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
+            .gauge-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                animation: shimmer 2s infinite;
+            }
 
         @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
 
         .gauge-value {
@@ -254,10 +261,10 @@
             animation: fadeInUp 0.6s ease both;
         }
 
-        .metric-card:hover {
-            transform: translateY(-4px);
-            border-color: #9CA3AF;
-        }
+            .metric-card:hover {
+                transform: translateY(-4px);
+                border-color: #9CA3AF;
+            }
 
         .metric-label {
             font-size: 0.875rem;
@@ -283,13 +290,13 @@
             gap: 0.5rem;
         }
 
-        .metric-change.positive {
-            color: var(--success-teal);
-        }
+            .metric-change.positive {
+                color: var(--success-teal);
+            }
 
-        .metric-change.negative {
-            color: var(--warning-orange);
-        }
+            .metric-change.negative {
+                color: var(--warning-orange);
+            }
 
         .metric-status {
             padding: 0.25rem 0.75rem;
@@ -391,11 +398,11 @@
             font-weight: 600;
         }
 
-        .strategy-tag.avoid {
-            background: rgba(251, 146, 60, 0.15);
-            border-color: var(--warning-orange);
-            color: var(--warning-orange);
-        }
+            .strategy-tag.avoid {
+                background: rgba(251, 146, 60, 0.15);
+                border-color: var(--warning-orange);
+                color: var(--warning-orange);
+            }
 
         /* Warning Section */
         .warning-box {
@@ -421,20 +428,20 @@
             padding: 0;
         }
 
-        .warning-list li {
-            padding: 0.75rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            color: var(--text-light);
-        }
+            .warning-list li {
+                padding: 0.75rem 0;
+                padding-left: 1.5rem;
+                position: relative;
+                color: var(--text-light);
+            }
 
-        .warning-list li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--warning-orange);
-            font-weight: bold;
-        }
+                .warning-list li::before {
+                    content: '▸';
+                    position: absolute;
+                    left: 0;
+                    color: var(--warning-orange);
+                    font-weight: bold;
+                }
 
         /* Timeline Visualization */
         .timeline-container {
@@ -461,9 +468,9 @@
             cursor: pointer;
         }
 
-        .timeline-item:hover {
-            transform: translateY(-4px);
-        }
+            .timeline-item:hover {
+                transform: translateY(-4px);
+            }
 
         .timeline-date {
             font-size: 0.75rem;
@@ -503,6 +510,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -513,6 +521,7 @@
             0%, 100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
@@ -567,15 +576,30 @@
             border-radius: 2px;
             transition: transform 0.2s ease;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--text-white);
+            position: relative;
         }
 
-        .heatmap-cell:hover {
-            transform: scale(1.1);
+            .heatmap-cell:hover {
+                transform: scale(1.1);
+            }
+
+        .score-high {
+            background: var(--success-teal);
         }
 
-        .score-high { background: var(--success-teal); }
-        .score-medium { background: var(--accent-blue); }
-        .score-low { background: rgba(255, 255, 255, 0.05); }
+        .score-medium {
+            background: var(--accent-blue);
+        }
+
+        .score-low {
+            background: rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
 <body>
@@ -624,8 +648,8 @@
             </div>
 
             <p style="color: var(--text-gray); margin-top: 1rem; font-size: 1rem;">
-                <strong style="color: var(--text-light);">Interpretation:</strong> Bifurcated economy with moderate confidence. 
-                Manufacturing in recession (ISM 47.3) while services sector holds up (ISM 51.9). 
+                <strong style="color: var(--text-light);">Interpretation:</strong> Bifurcated economy with moderate confidence.
+                Manufacturing in recession (ISM 47.3) while services sector holds up (ISM 51.9).
                 Fed cutting rates but real rates still restrictive. Cautiously bullish environment.
             </p>
         </div>
@@ -805,7 +829,7 @@
 
             <div class="viz-card">
                 <div class="viz-title">Last 12 Months - Goldilocks Regime Score</div>
-                
+
                 <!-- Month Labels -->
                 <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.5rem; margin-bottom: 0.5rem;">
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Jan</div>
@@ -821,23 +845,23 @@
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Nov</div>
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Dec</div>
                 </div>
-                
+
                 <div class="heatmap-grid">
                     <!-- Generate 12 cells for Goldilocks regime scores -->
-                    <div class="heatmap-cell score-medium" title="January 2025: Score 5"></div>
-                    <div class="heatmap-cell score-medium" title="February 2025: Score 5"></div>
-                    <div class="heatmap-cell score-high" title="March 2025: Score 7"></div>
-                    <div class="heatmap-cell score-high" title="April 2025: Score 7"></div>
-                    <div class="heatmap-cell score-high" title="May 2025: Score 8"></div>
-                    <div class="heatmap-cell score-high" title="June 2025: Score 7"></div>
-                    <div class="heatmap-cell score-high" title="July 2025: Score 7"></div>
-                    <div class="heatmap-cell score-medium" title="August 2025: Score 6"></div>
-                    <div class="heatmap-cell score-medium" title="September 2025: Score 6"></div>
-                    <div class="heatmap-cell score-medium" title="October 2025: Score 5"></div>
-                    <div class="heatmap-cell score-medium" title="November 2025: Score 6"></div>
-                    <div class="heatmap-cell score-high" title="December 2025: Score 6"></div>
+                    <div class="heatmap-cell score-medium" title="January 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-medium" title="February 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-high" title="March 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="April 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="May 2025: Score 8">8</div>
+                    <div class="heatmap-cell score-high" title="June 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="July 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-medium" title="August 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="September 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="October 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-medium" title="November 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="December 2025: Score 6">6</div>
                 </div>
-                
+
                 <!-- Legend -->
                 <div style="margin-top: 1.5rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -853,10 +877,105 @@
                         <span style="color: var(--text-gray); font-size: 0.875rem;">Low Score (0-3)</span>
                     </div>
                 </div>
-                
+
                 <p style="color: var(--text-gray); margin-top: 1rem; font-size: 0.875rem;">
                     Goldilocks regime has been dominant throughout 2025, with consistently high scores indicating stable growth, controlled inflation, and accommodative Fed policy.
                 </p>
+            </div>
+        </div>
+
+        <!-- Regime Definitions Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Regime Definitions</h2>
+            </div>
+
+            <div style="display: grid; gap: 2rem;">
+                <!-- Goldilocks Growth -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--success-teal); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--success-teal);">Goldilocks Growth</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Moderate GDP growth (2-4%), controlled inflation (PCE near 2% target), healthy labor market, both ISM Manufacturing and Services above 50, Fed policy neutral to slightly accommodative.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Risk-on sentiment, equity valuations expand, credit spreads tight, volatility (VIX) typically below 20.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Bullish bias. Full position sizing. Aggressive dip buying, take breakouts, ride trends. High conviction trades with wider targets (2-3R). Win rate 55-60%.
+                    </p>
+                </div>
+
+                <!-- Inflation Scare -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--warning-orange); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--warning-orange);">Inflation Scare</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Strong growth (GDP >3%) but inflation accelerating (PCE >3%), Fed hiking or threatening to hike, real rates rising or turning positive, ISM still strong but input prices elevated.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Risk-off rotation, growth stocks underperform, bond yields rising, yield curve may flatten or invert, volatility elevated.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Bearish bias. Reduced sizing (60-75%). Fade rallies, short reversals, selective dip buying. Tighter stops (0.75-1.0 ATR), quicker profit taking (1.5-2R). Intraday focus.
+                    </p>
+                </div>
+
+                <!-- Recession/Crisis -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--accent-blue); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">Recession / Crisis</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Negative or very weak GDP growth, both ISM Manufacturing and Services below 50, unemployment rising (Sahm Rule triggered), Fed cutting aggressively, credit spreads widening.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Severe risk-off, equities trending down, flight to quality (bonds, USD), VIX elevated (>30), correlation breakdown.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Aggressive bearish bias. Full size on shorts. Short every bounce, fade breakouts, avoid dip buying. Wide stops on shorts (1.5-2.0 ATR), let winners run (3-5R).
+                    </p>
+                </div>
+
+                <!-- Recovery/Reflation -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--accent-cyan); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">Recovery / Reflation</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> GDP accelerating from low base, ISM rising above 50 (expansion), unemployment stable or falling, inflation still low, Fed very accommodative (low rates, QE possible).
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Strong risk-on, cyclicals outperform, commodities rally, yield curve steepening, "reflation trade" in full effect.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Aggressive bullish bias. Full+ size (can oversize). Very aggressive dip buying, take all breakouts. Wide stops (1.5-2.0 ATR), trail runners (3-5R). High conviction.
+                    </p>
+                </div>
+
+                <!-- Stagflation -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: #F97316; border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700;" style="color: #F97316;">Stagflation</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Weak growth (GDP <2% or negative) combined with elevated inflation (PCE>3%), ISM weak but input prices high, Fed in impossible position (can't hike or cut), unemployment rising.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Extremely challenging - no safe haven. Equities struggle, bonds offer no refuge (yields rising), commodities may be only positive performer. High volatility, low correlation.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Neutral/defensive. Minimal sizing (30-50%). Mean reversion only, fade all breakouts, range trade. Very tight stops (0.5 ATR), scalp mentality (1R targets). Preserve capital.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -877,7 +996,7 @@
             try {
                 const response = await fetch('regime-data.json');
                 const data = await response.json();
-                
+
                 // Update last updated date
                 const lastUpdatedDate = new Date(data.lastUpdated).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -885,48 +1004,48 @@
                     day: 'numeric'
                 });
                 document.querySelector('.last-updated').textContent = `Last Updated: ${lastUpdatedDate}`;
-                
+
                 // Update current regime
                 document.querySelector('.regime-badge').textContent = data.currentRegime.name;
                 document.querySelector('.regime-card p').innerHTML = `<strong style="color: var(--text-light);">Interpretation:</strong> ${data.currentRegime.interpretation}`;
-                
+
                 // Update confidence gauge
                 const confidence = data.currentRegime.confidence;
                 document.querySelector('.gauge-label span:last-child').textContent = `${confidence}%`;
                 document.querySelector('.gauge-fill').style.width = `${confidence}%`;
                 document.querySelector('.gauge-value').textContent = `${confidence}%`;
-                
+
                 // Update metrics
                 const metrics = data.metrics;
                 const metricCards = document.querySelectorAll('.metric-card');
-                
+
                 metricCards[0].querySelector('.metric-value').innerHTML = `${metrics.gdp.value}<span style="font-size: 1.25rem;">%</span>`;
                 metricCards[0].querySelector('.metric-change span:last-child').textContent = metrics.gdp.label;
-                
+
                 metricCards[1].querySelector('.metric-value').innerHTML = `${metrics.corePCE.value}<span style="font-size: 1.25rem;">%</span>`;
                 metricCards[1].querySelector('.metric-change span:last-child').textContent = metrics.corePCE.label;
-                
+
                 metricCards[2].querySelector('.metric-value').innerHTML = `${metrics.fedFunds.value}<span style="font-size: 1.25rem;">%</span>`;
                 metricCards[2].querySelector('.metric-change span:last-child').textContent = metrics.fedFunds.label;
-                
+
                 metricCards[3].querySelector('.metric-value').innerHTML = `${metrics.unemployment.value}<span style="font-size: 1.25rem;">%</span>`;
                 metricCards[3].querySelector('.metric-change span:last-child').textContent = metrics.unemployment.label;
-                
+
                 metricCards[4].querySelector('.metric-value').textContent = metrics.ismManufacturing.value;
                 metricCards[5].querySelector('.metric-value').textContent = metrics.ismServices.value;
-                
+
                 metricCards[6].querySelector('.metric-value').innerHTML = `${metrics.nfp.value}<span style="font-size: 1.25rem;">K</span>`;
                 metricCards[6].querySelector('.metric-change span:last-child').textContent = metrics.nfp.label;
-                
+
                 metricCards[7].querySelector('.metric-value').innerHTML = `${metrics.treasury10y.value}<span style="font-size: 1.25rem;">%</span>`;
                 metricCards[7].querySelector('.metric-change span:last-child').textContent = metrics.treasury10y.label;
-                
+
                 // Update trading guidance
                 document.querySelector('.guidance-value[style*="color"]').textContent = data.tradingGuidance.bias;
                 document.querySelectorAll('.guidance-value')[1].textContent = data.tradingGuidance.positionSizing;
                 document.querySelectorAll('.guidance-value')[2].textContent = data.tradingGuidance.timeframe;
                 document.querySelectorAll('.guidance-value')[3].textContent = data.tradingGuidance.winRateTarget;
-                
+
                 // Update strategies
                 const strategiesContainer = document.querySelector('.guidance-strategies');
                 strategiesContainer.innerHTML = '';
@@ -936,7 +1055,7 @@
                     tag.textContent = strategy.text;
                     strategiesContainer.appendChild(tag);
                 });
-                
+
                 // Update warnings
                 const warningList = document.querySelector('.warning-list');
                 warningList.innerHTML = '';
@@ -945,35 +1064,37 @@
                     li.textContent = warning;
                     warningList.appendChild(li);
                 });
-                
-                // Update timeline
+
+                // Update timeline (reversed - newest first)
                 const timeline = document.querySelector('.timeline');
                 timeline.innerHTML = '';
-                data.timeline.forEach(item => {
+                // Reverse the array so newest appears on left
+                const reversedTimeline = [...data.timeline].reverse();
+                reversedTimeline.forEach(item => {
                     const bgColor = item.color === 'orange' ? 'rgba(251, 146, 60, 0.2)' : 'rgba(20, 184, 166, 0.2)';
                     const textColor = item.color === 'orange' ? 'var(--warning-orange)' : 'var(--success-teal)';
                     const border = item.current ? 'border: 2px solid #9CA3AF;' : '';
-                    
+
                     const timelineItem = document.createElement('div');
                     timelineItem.className = 'timeline-item';
                     timelineItem.style = `background: ${bgColor}; ${border}`;
                     timelineItem.innerHTML = `
-                        <div class="timeline-date">${item.period}</div>
-                        <div class="timeline-regime" style="color: ${textColor};">${item.regime}${item.current ? ' ✦' : ''}</div>
-                    `;
+                            <div class="timeline-date">${item.period}</div>
+                            <div class="timeline-regime" style="color: ${textColor};">${item.regime}${item.current ? ' ✦' : ''}</div>
+                        `;
                     timeline.appendChild(timelineItem);
                 });
-                
+
                 // Update heatmap
                 const heatmapData = data.heatmap;
                 document.querySelector('.viz-title').textContent = heatmapData.title;
-                
+
                 // Update month labels
                 const monthLabels = document.querySelectorAll('.heatmap-grid').previousElementSibling.querySelectorAll('div');
                 heatmapData.months.forEach((month, i) => {
                     if (monthLabels[i]) monthLabels[i].textContent = month;
                 });
-                
+
                 // Update heatmap cells
                 const heatmapCells = document.querySelectorAll('.heatmap-cell');
                 heatmapData.scores.forEach((score, i) => {
@@ -986,17 +1107,18 @@
                         } else {
                             heatmapCells[i].classList.add('score-low');
                         }
+                        heatmapCells[i].textContent = score;
                         heatmapCells[i].title = `${heatmapData.months[i]} ${heatmapData.year}: Score ${score}`;
                     }
                 });
-                
+
                 console.log('Dashboard data loaded successfully');
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
                 console.log('Using default static data');
             }
         }
-        
+
         // Load data when page loads
         window.addEventListener('load', loadDashboardData);
 
@@ -1029,27 +1151,27 @@
 
         // Timeline hover effects
         document.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
+            item.addEventListener('mouseenter', function () {
                 this.style.boxShadow = '0 8px 24px rgba(156, 163, 175, 0.3)';
             });
-            item.addEventListener('mouseleave', function() {
+            item.addEventListener('mouseleave', function () {
                 this.style.boxShadow = 'none';
             });
         });
-        
+
         // Send height to parent iframe for auto-resize
         function sendHeight() {
             const height = document.documentElement.scrollHeight;
-            window.parent.postMessage({frameHeight: height}, '*');
+            window.parent.postMessage({ frameHeight: height }, '*');
         }
-        
+
         // Send height on load and after data loads
         window.addEventListener('load', () => {
             setTimeout(sendHeight, 500);
             setTimeout(sendHeight, 1000);
             setTimeout(sendHeight, 2000);
         });
-        
+
         // Send height on resize
         window.addEventListener('resize', sendHeight);
     </script>
