@@ -571,6 +571,18 @@
             gap: 0.5rem;
         }
 
+        @media (max-width: 768px) {
+            .heatmap-grid {
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heatmap-grid {
+                gap: 0.15rem;
+            }
+        }
+
         .heatmap-cell {
             aspect-ratio: 1;
             border-radius: 2px;
@@ -585,9 +597,48 @@
             position: relative;
         }
 
-            .heatmap-cell:hover {
-                transform: scale(1.1);
+        @media (max-width: 768px) {
+            .heatmap-cell {
+                font-size: 0.75rem;
             }
+        }
+
+        @media (max-width: 480px) {
+            .heatmap-cell {
+                font-size: 0.625rem;
+            }
+        }
+
+        .month-labels {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .month-labels {
+                gap: 0.25rem;
+            }
+
+                .month-labels > div {
+                    font-size: 0.625rem !important;
+                }
+        }
+
+        @media (max-width: 480px) {
+            .month-labels {
+                gap: 0.15rem;
+            }
+
+                .month-labels > div {
+                    font-size: 0.5rem !important;
+                }
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+        }
 
         .score-high {
             background: var(--success-teal);
@@ -831,7 +882,7 @@
                 <div class="viz-title">Last 12 Months - Goldilocks Regime Score</div>
 
                 <!-- Month Labels -->
-                <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.5rem; margin-bottom: 0.5rem;" class="month-labels">
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Jan</div>
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Feb</div>
                     <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Mar</div>
