@@ -111,7 +111,7 @@
         }
 
             .hero h1 {
-                font-size: 1.875rem;
+                font-size: 2.25rem;
                 font-weight: 700;
                 margin-bottom: 2rem;
                 background: linear-gradient(135deg, #F9FAFB, #9CA3AF);
@@ -123,6 +123,18 @@
                 font-style: italic;
             }
 
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.25rem;
+            }
+        }
+
         .hero-subtitle {
             font-size: 1rem;
             color: var(--text-gray);
@@ -132,6 +144,7 @@
             margin-left: auto;
             margin-right: auto;
             line-height: 1.8;
+            text-align: left;
         }
 
         /* Current Regime Card */
@@ -156,6 +169,23 @@
                 background: linear-gradient(90deg, #F9FAFB, #6B7280);
             }
 
+        .regime-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .regime-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .regime-title {
+                font-size: 1.25rem;
+            }
+        }
+
         .regime-header {
             display: flex;
             justify-content: space-between;
@@ -163,9 +193,12 @@
             margin-bottom: 2rem;
         }
 
-        .regime-title {
-            font-size: 2rem;
-            font-weight: 700;
+        @media (max-width: 768px) {
+            .regime-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
         }
 
         .regime-badge {
@@ -252,6 +285,20 @@
             margin: 3rem 0;
         }
 
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+        }
+
         .metric-card {
             background: var(--navy-medium);
             border-radius: 4px;
@@ -261,10 +308,16 @@
             animation: fadeInUp 0.6s ease both;
         }
 
-            .metric-card:hover {
-                transform: translateY(-4px);
-                border-color: #9CA3AF;
+        @media (max-width: 480px) {
+            .metric-card {
+                padding: 1rem;
             }
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            border-color: #9CA3AF;
+        }
 
         .metric-label {
             font-size: 0.875rem;
@@ -275,11 +328,24 @@
             font-weight: 600;
         }
 
+        @media (max-width: 480px) {
+            .metric-label {
+                font-size: 0.625rem;
+                letter-spacing: 0.5px;
+            }
+        }
+
         .metric-value {
             font-size: 2rem;
             font-weight: 700;
             color: var(--text-white);
             font-family: 'IBM Plex Mono', monospace;
+        }
+
+        @media (max-width: 480px) {
+            .metric-value {
+                font-size: 1.5rem;
+            }
         }
 
         .metric-change {
@@ -942,7 +1008,7 @@
                 <h2 class="section-title">Regime Definitions</h2>
             </div>
 
-            <div style="display: grid; gap: 2rem;">
+            <div style="display: grid; gap: 1.5rem;">
                 <!-- Goldilocks Growth -->
                 <div class="viz-card">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
