@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Regime Analysis Dashboard | The Starting Point</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy-dark: #030712;
+            --navy-medium: #0f172a;
+            --navy-card: #111827;
+            --accent-blue: #3B82F6;
+            --accent-cyan: #06B6D4;
+            --accent-teal: #14B8A6;
+            --text-white: #F9FAFB;
+            --text-gray: #6B7280;
+            --text-light: #9CA3AF;
+            --success-teal: #14B8A6;
+            --warning-orange: #F97316;
+            --danger-orange: #FB923C;
+            --regime-goldilocks: #14B8A6;
+            --regime-inflation: #FB923C;
+            --regime-recession: #3B82F6;
+            --regime-recovery: #06B6D4;
+            --regime-stagflation: #F97316;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--navy-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%), linear-gradient(180deg, #030712 0%, #0a1120 100%);
+            z-index: -1;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem 4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(3, 7, 18, 0.9);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 0.875rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #F9FAFB, #6B7280);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .last-updated {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+            .hero h1 {
+                font-size: 2.25rem;
+                font-weight: 700;
+                margin-bottom: 2rem;
+                background: linear-gradient(135deg, #F9FAFB, #9CA3AF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+                animation: fadeInUp 0.8s ease;
+                line-height: 1.4;
+                font-style: italic;
+            }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        /* Current Regime Card */
+        .regime-card {
+            background: var(--navy-card);
+            border-radius: 4px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+            .regime-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #F9FAFB, #6B7280);
+            }
+
+        .regime-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .regime-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .regime-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        .regime-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .regime-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        .regime-badge {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            display: inline-block;
+        }
+
+        .regime-goldilocks {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--regime-goldilocks);
+            border: 1px solid var(--regime-goldilocks);
+        }
+
+        /* Confidence Gauge */
+        .confidence-gauge {
+            margin: 2rem 0;
+        }
+
+        .gauge-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        .gauge-bar {
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F9FAFB, #6B7280);
+            border-radius: 4px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .gauge-fill::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                animation: shimmer 2s infinite;
+            }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .gauge-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
+            }
+        }
+
+        .metric-card {
+            background: var(--navy-medium);
+            border-radius: 4px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        @media (max-width: 480px) {
+            .metric-card {
+                padding: 1rem;
+            }
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            border-color: #9CA3AF;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .metric-label {
+                font-size: 0.625rem;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-white);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        @media (max-width: 480px) {
+            .metric-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        .metric-change {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .metric-change.positive {
+                color: var(--success-teal);
+            }
+
+            .metric-change.negative {
+                color: var(--warning-orange);
+            }
+
+        .metric-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .status-expansion {
+            background: rgba(20, 184, 166, 0.2);
+            color: var(--success-teal);
+        }
+
+        .status-contraction {
+            background: rgba(251, 146, 60, 0.2);
+            color: var(--warning-orange);
+        }
+
+        /* Section Headers */
+        .section {
+            margin: 4rem 0;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #F9FAFB, #6B7280);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Trading Guidance */
+        .trading-guidance {
+            background: linear-gradient(135deg, rgba(249, 250, 251, 0.05), rgba(107, 115, 128, 0.03));
+            border-radius: 4px;
+            padding: 2.5rem;
+            border: 1px solid rgba(249, 250, 251, 0.15);
+        }
+
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .guidance-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .guidance-label {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .guidance-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .guidance-strategies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .strategy-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(20, 184, 166, 0.15);
+            border: 1px solid var(--success-teal);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            color: var(--success-teal);
+            font-weight: 600;
+        }
+
+            .strategy-tag.avoid {
+                background: rgba(251, 146, 60, 0.15);
+                border-color: var(--warning-orange);
+                color: var(--warning-orange);
+            }
+
+        /* Warning Section */
+        .warning-box {
+            background: rgba(251, 146, 60, 0.1);
+            border: 1px solid var(--warning-orange);
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .warning-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--warning-orange);
+        }
+
+        .warning-list {
+            list-style: none;
+            padding: 0;
+        }
+
+            .warning-list li {
+                padding: 0.75rem 0;
+                padding-left: 1.5rem;
+                position: relative;
+                color: var(--text-light);
+            }
+
+                .warning-list li::before {
+                    content: '▸';
+                    position: absolute;
+                    left: 0;
+                    color: var(--warning-orange);
+                    font-weight: bold;
+                }
+
+        /* Timeline Visualization */
+        .timeline-container {
+            background: var(--navy-card);
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .timeline {
+            display: flex;
+            gap: 1rem;
+            min-width: 800px;
+            padding: 1rem 0;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+            .timeline-item:hover {
+                transform: translateY(-4px);
+            }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .timeline-regime {
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+        }
+
+        .footer-brand {
+            font-size: 1.125rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #F9FAFB, #6B7280);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guidance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Data Visualization Styles */
+        .viz-card {
+            background: var(--navy-card);
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .viz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .heatmap-grid {
+                gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heatmap-grid {
+                gap: 0.15rem;
+            }
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 2px;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--text-white);
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .heatmap-cell {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heatmap-cell {
+                font-size: 0.625rem;
+            }
+        }
+
+        .month-labels {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .month-labels {
+                gap: 0.25rem;
+            }
+
+                .month-labels > div {
+                    font-size: 0.625rem !important;
+                }
+        }
+
+        @media (max-width: 480px) {
+            .month-labels {
+                gap: 0.15rem;
+            }
+
+                .month-labels > div {
+                    font-size: 0.5rem !important;
+                }
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+        }
+
+        .score-high {
+            background: var(--success-teal);
+        }
+
+        .score-medium {
+            background: var(--accent-blue);
+        }
+
+        .score-low {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .regime-definitions-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .regime-definitions-grid {
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .regime-definitions-grid {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">MARKET REGIME ANALYZER</div>
+            <div class="last-updated">Last Updated: 11:39 December 22, 2025</div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>"The goal is not to predict, but to know when the odds are in your favor and act without hesitation."</h1>
+            <p style="color: var(--text-gray); font-size: 0.875rem; margin-bottom: 2rem; font-style: italic;">— Mark Douglas, Trading in the Zone</p>
+            <p class="hero-subtitle">
+                This system analyzes five distinct economic regimes (Goldilocks, Inflation Scare, Recession, Recovery, Stagflation) by combining Federal Reserve policy stance with leading economic indicators including GDP, Core PCE inflation, ISM Manufacturing and Services PMI, labor market data, and Treasury yields. Designed to provide ES/NQ futures traders with macro-economic context for position sizing and directional bias decisions, updating monthly as new economic data releases.
+                <br><br>
+                <strong style="color: var(--text-gray);">Strengths:</strong> Fed-aware analysis combining real-time policy stance with forward-looking PMI indicators and comprehensive economic data. Eliminates whipsaws through time-smoothing and persistence filters.
+                <br><br>
+                <strong style="color: var(--text-gray);">Limitations:</strong> Monthly update cycle lags intraday market moves. Cannot predict black swan events or sudden Fed policy pivots. Best used as strategic context, not tactical timing.
+            </p>
+        </div>
+
+        <!-- Current Regime Card -->
+        <div class="regime-card">
+            <div class="regime-header">
+                <h2 class="regime-title">Current Market Regime</h2>
+                <span class="regime-badge regime-goldilocks">Goldilocks Growth</span>
+            </div>
+
+            <div class="confidence-gauge">
+                <div class="gauge-label">
+                    <span>Confidence Level</span>
+                    <span>46.2%</span>
+                </div>
+                <div class="gauge-bar">
+                    <div class="gauge-fill" style="width: 46.2%;">
+                        <div class="gauge-value">46.2%</div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: var(--text-gray); margin-top: 1rem; font-size: 1rem;">
+                <strong style="color: var(--text-light);">Interpretation:</strong> Bifurcated economy with moderate confidence.
+                Manufacturing in recession (ISM 47.3) while services sector holds up (ISM 51.9).
+                Fed cutting rates but real rates still restrictive. Cautiously bullish environment.
+            </p>
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Economic Indicators</h2>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card" style="animation-delay: 0.1s;">
+                    <div class="metric-label">GDP (2Q Avg)</div>
+                    <div class="metric-value">2.1<span style="font-size: 1.25rem;">%</span></div>
+                    <div class="metric-change positive">
+                        <span>▲</span>
+                        <span>Moderate Growth</span>
+                    </div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.2s;">
+                    <div class="metric-label">Core PCE (YoY)</div>
+                    <div class="metric-value">1.3<span style="font-size: 1.25rem;">%</span></div>
+                    <div class="metric-change positive">
+                        <span>✓</span>
+                        <span>Below Target</span>
+                    </div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.3s;">
+                    <div class="metric-label">Fed Funds Rate</div>
+                    <div class="metric-value">3.62<span style="font-size: 1.25rem;">%</span></div>
+                    <div class="metric-change positive">
+                        <span>▼</span>
+                        <span>Cutting Cycle</span>
+                    </div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.4s;">
+                    <div class="metric-label">Unemployment</div>
+                    <div class="metric-value">4.6<span style="font-size: 1.25rem;">%</span></div>
+                    <div class="metric-change">
+                        <span>=</span>
+                        <span>Stable</span>
+                    </div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.5s;">
+                    <div class="metric-label">ISM Manufacturing</div>
+                    <div class="metric-value">47.3</div>
+                    <div class="metric-status status-contraction">Contraction</div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.6s;">
+                    <div class="metric-label">ISM Services</div>
+                    <div class="metric-value">51.9</div>
+                    <div class="metric-status status-expansion">Expansion</div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.7s;">
+                    <div class="metric-label">NFP (3M Avg)</div>
+                    <div class="metric-value">26<span style="font-size: 1.25rem;">K</span></div>
+                    <div class="metric-change negative">
+                        <span>▼</span>
+                        <span>Weak Hiring</span>
+                    </div>
+                </div>
+
+                <div class="metric-card" style="animation-delay: 0.8s;">
+                    <div class="metric-label">10Y Treasury</div>
+                    <div class="metric-value">4.47<span style="font-size: 1.25rem;">%</span></div>
+                    <div class="metric-change">
+                        <span>=</span>
+                        <span>Normal Curve</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trading Guidance Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Trading Guidance</h2>
+            </div>
+
+            <div class="trading-guidance">
+                <div class="guidance-grid">
+                    <div class="guidance-item">
+                        <div class="guidance-label">Directional Bias</div>
+                        <div class="guidance-value" style="color: var(--success-teal);">Cautiously Bullish</div>
+                    </div>
+
+                    <div class="guidance-item">
+                        <div class="guidance-label">Position Sizing</div>
+                        <div class="guidance-value">Moderate (60-75%)</div>
+                    </div>
+
+                    <div class="guidance-item">
+                        <div class="guidance-label">Preferred Timeframe</div>
+                        <div class="guidance-value">Swing & Intraday</div>
+                    </div>
+
+                    <div class="guidance-item">
+                        <div class="guidance-label">Win Rate Target</div>
+                        <div class="guidance-value">55-60%</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <div class="guidance-label" style="margin-bottom: 1rem;">Primary Strategies</div>
+                    <div class="guidance-strategies">
+                        <span class="strategy-tag">✓ Buy Dips</span>
+                        <span class="strategy-tag">✓ Take Breakouts</span>
+                        <span class="strategy-tag">✓ Reclaim VWAP</span>
+                        <span class="strategy-tag avoid">✗ Fade Strength</span>
+                        <span class="strategy-tag avoid">✗ Aggressive Shorts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning Signs -->
+        <div class="warning-box">
+            <div class="warning-header">
+                <span>WARNING</span>
+                <span>Bearish Triggers - Watch Closely</span>
+            </div>
+            <ul class="warning-list">
+                <li>ISM Services drops below 50 (manufacturing already weak)</li>
+                <li>Unemployment rises >0.5% in 3 months (Sahm Rule)</li>
+                <li>Jobless Claims spike above 300K sustained</li>
+                <li>Core PCE re-accelerates above 3%</li>
+            </ul>
+        </div>
+
+        <!-- Regime Timeline -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Recent Regime History</h2>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item" style="background: rgba(251, 146, 60, 0.2);">
+                        <div class="timeline-date">2022 Q1-Q4</div>
+                        <div class="timeline-regime" style="color: var(--warning-orange);">Inflation Scare</div>
+                    </div>
+                    <div class="timeline-item" style="background: rgba(251, 146, 60, 0.2);">
+                        <div class="timeline-date">2023 Q1-Q2</div>
+                        <div class="timeline-regime" style="color: var(--warning-orange);">Inflation Scare</div>
+                    </div>
+                    <div class="timeline-item" style="background: rgba(20, 184, 166, 0.2);">
+                        <div class="timeline-date">2023 Q3-Q4</div>
+                        <div class="timeline-regime" style="color: var(--success-teal);">Goldilocks</div>
+                    </div>
+                    <div class="timeline-item" style="background: rgba(20, 184, 166, 0.2);">
+                        <div class="timeline-date">2024 Q1-Q4</div>
+                        <div class="timeline-regime" style="color: var(--success-teal);">Goldilocks</div>
+                    </div>
+                    <div class="timeline-item" style="background: rgba(20, 184, 166, 0.2); border: 2px solid #9CA3AF;">
+                        <div class="timeline-date">2025 Q4</div>
+                        <div class="timeline-regime" style="color: var(--success-teal);">Goldilocks ✦</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regime Score Heatmap -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Regime Strength Matrix</h2>
+            </div>
+
+            <div class="viz-card">
+                <div class="viz-title">Last 12 Months - Goldilocks Regime Score</div>
+
+                <!-- Month Labels -->
+                <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.5rem; margin-bottom: 0.5rem;" class="month-labels">
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Jan</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Feb</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Mar</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Apr</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">May</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Jun</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Jul</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Aug</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Sep</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Oct</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Nov</div>
+                    <div style="text-align: center; font-size: 0.75rem; color: var(--text-gray);">Dec</div>
+                </div>
+
+                <div class="heatmap-grid">
+                    <!-- Generate 12 cells for Goldilocks regime scores -->
+                    <div class="heatmap-cell score-medium" title="January 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-medium" title="February 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-high" title="March 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="April 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="May 2025: Score 8">8</div>
+                    <div class="heatmap-cell score-high" title="June 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-high" title="July 2025: Score 7">7</div>
+                    <div class="heatmap-cell score-medium" title="August 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="September 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="October 2025: Score 5">5</div>
+                    <div class="heatmap-cell score-medium" title="November 2025: Score 6">6</div>
+                    <div class="heatmap-cell score-medium" title="December 2025: Score 6">6</div>
+                </div>
+
+                <!-- Legend -->
+                <div style="margin-top: 1.5rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--success-teal); border-radius: 2px;"></div>
+                        <span style="color: var(--text-gray); font-size: 0.875rem;">High Score (7-13)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: var(--accent-blue); border-radius: 2px;"></div>
+                        <span style="color: var(--text-gray); font-size: 0.875rem;">Medium Score (4-6)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 20px; height: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 2px;"></div>
+                        <span style="color: var(--text-gray); font-size: 0.875rem;">Low Score (0-3)</span>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-gray); margin-top: 1rem; font-size: 0.875rem;">
+                    Goldilocks regime has been dominant throughout 2025, with consistently high scores indicating stable growth, controlled inflation, and accommodative Fed policy.
+                </p>
+            </div>
+        </div>
+
+        <!-- Regime Definitions Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-icon"></div>
+                <h2 class="section-title">Regime Definitions</h2>
+            </div>
+
+            <div style="display: grid; gap: 1rem;" class="regime-definitions-grid">
+                <!-- Goldilocks Growth -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--success-teal); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--success-teal);">Goldilocks Growth</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Moderate GDP growth (2-4%), controlled inflation (PCE near 2% target), healthy labor market, both ISM Manufacturing and Services above 50, Fed policy neutral to slightly accommodative.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Risk-on sentiment, equity valuations expand, credit spreads tight, volatility (VIX) typically below 20.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Bullish bias. Full position sizing. Aggressive dip buying, take breakouts, ride trends. High conviction trades with wider targets (2-3R). Win rate 55-60%.
+                    </p>
+                </div>
+
+                <!-- Inflation Scare -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--warning-orange); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--warning-orange);">Inflation Scare</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Strong growth (GDP >3%) but inflation accelerating (PCE >3%), Fed hiking or threatening to hike, real rates rising or turning positive, ISM still strong but input prices elevated.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Risk-off rotation, growth stocks underperform, bond yields rising, yield curve may flatten or invert, volatility elevated.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Bearish bias. Reduced sizing (60-75%). Fade rallies, short reversals, selective dip buying. Tighter stops (0.75-1.0 ATR), quicker profit taking (1.5-2R). Intraday focus.
+                    </p>
+                </div>
+
+                <!-- Recession/Crisis -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--accent-blue); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">Recession / Crisis</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Negative or very weak GDP growth, both ISM Manufacturing and Services below 50, unemployment rising (Sahm Rule triggered), Fed cutting aggressively, credit spreads widening.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Severe risk-off, equities trending down, flight to quality (bonds, USD), VIX elevated (>30), correlation breakdown.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Aggressive bearish bias. Full size on shorts. Short every bounce, fade breakouts, avoid dip buying. Wide stops on shorts (1.5-2.0 ATR), let winners run (3-5R).
+                    </p>
+                </div>
+
+                <!-- Recovery/Reflation -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: var(--accent-cyan); border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">Recovery / Reflation</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> GDP accelerating from low base, ISM rising above 50 (expansion), unemployment stable or falling, inflation still low, Fed very accommodative (low rates, QE possible).
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Strong risk-on, cyclicals outperform, commodities rally, yield curve steepening, "reflation trade" in full effect.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Aggressive bullish bias. Full+ size (can oversize). Very aggressive dip buying, take all breakouts. Wide stops (1.5-2.0 ATR), trail runners (3-5R). High conviction.
+                    </p>
+                </div>
+
+                <!-- Stagflation -->
+                <div class="viz-card">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 4px; height: 40px; background: #F97316; border-radius: 2px;"></div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700;" style="color: #F97316;">Stagflation</h3>
+                    </div>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Economic Characteristics:</strong> Weak growth (GDP <2% or negative) combined with elevated inflation (PCE>3%), ISM weak but input prices high, Fed in impossible position (can't hike or cut), unemployment rising.
+                    </p>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Market Environment:</strong> Extremely challenging - no safe haven. Equities struggle, bonds offer no refuge (yields rising), commodities may be only positive performer. High volatility, low correlation.
+                    </p>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        <strong style="color: var(--text-white);">Trading Approach:</strong> Neutral/defensive. Minimal sizing (30-50%). Mean reversion only, fade all breakouts, range trade. Very tight stops (0.5 ATR), scalp mentality (1R targets). Preserve capital.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">THE STARTING POINT TRADING</div>
+        <p>Advanced Economic Regime Analysis for Futures Traders</p>
+        <p style="margin-top: 1rem; font-size: 0.875rem;">
+            This tool combines Fed policy data, forward-looking PMI indicators, and comprehensive economic analysis to provide regime-aware trading context.
+        </p>
+    </footer>
+
+    <script>
+        // Load data from JSON file
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('regime-data.json');
+                const data = await response.json();
+
+                // Update last updated date
+                const lastUpdatedDate = new Date(data.lastUpdated).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.querySelector('.last-updated').textContent = `Last Updated: ${lastUpdatedDate}`;
+
+                // Update current regime
+                document.querySelector('.regime-badge').textContent = data.currentRegime.name;
+                document.querySelector('.regime-card p').innerHTML = `<strong style="color: var(--text-light);">Interpretation:</strong> ${data.currentRegime.interpretation}`;
+
+                // Update confidence gauge
+                const confidence = data.currentRegime.confidence;
+                document.querySelector('.gauge-label span:last-child').textContent = `${confidence}%`;
+                document.querySelector('.gauge-fill').style.width = `${confidence}%`;
+                document.querySelector('.gauge-value').textContent = `${confidence}%`;
+
+                // Update metrics
+                const metrics = data.metrics;
+                const metricCards = document.querySelectorAll('.metric-card');
+
+                metricCards[0].querySelector('.metric-value').innerHTML = `${metrics.gdp.value}<span style="font-size: 1.25rem;">%</span>`;
+                metricCards[0].querySelector('.metric-change span:last-child').textContent = metrics.gdp.label;
+
+                metricCards[1].querySelector('.metric-value').innerHTML = `${metrics.corePCE.value}<span style="font-size: 1.25rem;">%</span>`;
+                metricCards[1].querySelector('.metric-change span:last-child').textContent = metrics.corePCE.label;
+
+                metricCards[2].querySelector('.metric-value').innerHTML = `${metrics.fedFunds.value}<span style="font-size: 1.25rem;">%</span>`;
+                metricCards[2].querySelector('.metric-change span:last-child').textContent = metrics.fedFunds.label;
+
+                metricCards[3].querySelector('.metric-value').innerHTML = `${metrics.unemployment.value}<span style="font-size: 1.25rem;">%</span>`;
+                metricCards[3].querySelector('.metric-change span:last-child').textContent = metrics.unemployment.label;
+
+                metricCards[4].querySelector('.metric-value').textContent = metrics.ismManufacturing.value;
+                metricCards[5].querySelector('.metric-value').textContent = metrics.ismServices.value;
+
+                metricCards[6].querySelector('.metric-value').innerHTML = `${metrics.nfp.value}<span style="font-size: 1.25rem;">K</span>`;
+                metricCards[6].querySelector('.metric-change span:last-child').textContent = metrics.nfp.label;
+
+                metricCards[7].querySelector('.metric-value').innerHTML = `${metrics.treasury10y.value}<span style="font-size: 1.25rem;">%</span>`;
+                metricCards[7].querySelector('.metric-change span:last-child').textContent = metrics.treasury10y.label;
+
+                // Update trading guidance
+                document.querySelector('.guidance-value[style*="color"]').textContent = data.tradingGuidance.bias;
+                document.querySelectorAll('.guidance-value')[1].textContent = data.tradingGuidance.positionSizing;
+                document.querySelectorAll('.guidance-value')[2].textContent = data.tradingGuidance.timeframe;
+                document.querySelectorAll('.guidance-value')[3].textContent = data.tradingGuidance.winRateTarget;
+
+                // Update strategies
+                const strategiesContainer = document.querySelector('.guidance-strategies');
+                strategiesContainer.innerHTML = '';
+                data.tradingGuidance.strategies.forEach(strategy => {
+                    const tag = document.createElement('span');
+                    tag.className = `strategy-tag${strategy.type === 'avoid' ? ' avoid' : ''}`;
+                    tag.textContent = strategy.text;
+                    strategiesContainer.appendChild(tag);
+                });
+
+                // Update warnings
+                const warningList = document.querySelector('.warning-list');
+                warningList.innerHTML = '';
+                data.warnings.forEach(warning => {
+                    const li = document.createElement('li');
+                    li.textContent = warning;
+                    warningList.appendChild(li);
+                });
+
+                // Update timeline (reversed - newest first)
+                const timeline = document.querySelector('.timeline');
+                timeline.innerHTML = '';
+                // Reverse the array so newest appears on left
+                const reversedTimeline = [...data.timeline].reverse();
+                reversedTimeline.forEach(item => {
+                    const bgColor = item.color === 'orange' ? 'rgba(251, 146, 60, 0.2)' : 'rgba(20, 184, 166, 0.2)';
+                    const textColor = item.color === 'orange' ? 'var(--warning-orange)' : 'var(--success-teal)';
+                    const border = item.current ? 'border: 2px solid #9CA3AF;' : '';
+
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = 'timeline-item';
+                    timelineItem.style = `background: ${bgColor}; ${border}`;
+                    timelineItem.innerHTML = `
+                            <div class="timeline-date">${item.period}</div>
+                            <div class="timeline-regime" style="color: ${textColor};">${item.regime}${item.current ? ' ✦' : ''}</div>
+                        `;
+                    timeline.appendChild(timelineItem);
+                });
+
+                // Update heatmap
+                const heatmapData = data.heatmap;
+                document.querySelector('.viz-title').textContent = heatmapData.title;
+
+                // Update month labels
+                const monthLabels = document.querySelectorAll('.heatmap-grid').previousElementSibling.querySelectorAll('div');
+                heatmapData.months.forEach((month, i) => {
+                    if (monthLabels[i]) monthLabels[i].textContent = month;
+                });
+
+                // Update heatmap cells
+                const heatmapCells = document.querySelectorAll('.heatmap-cell');
+                heatmapData.scores.forEach((score, i) => {
+                    if (heatmapCells[i]) {
+                        heatmapCells[i].className = 'heatmap-cell';
+                        if (score >= 7) {
+                            heatmapCells[i].classList.add('score-high');
+                        } else if (score >= 4) {
+                            heatmapCells[i].classList.add('score-medium');
+                        } else {
+                            heatmapCells[i].classList.add('score-low');
+                        }
+                        heatmapCells[i].textContent = score;
+                        heatmapCells[i].title = `${heatmapData.months[i]} ${heatmapData.year}: Score ${score}`;
+                    }
+                });
+
+                console.log('Dashboard data loaded successfully');
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                console.log('Using default static data');
+            }
+        }
+
+        // Load data when page loads
+        window.addEventListener('load', loadDashboardData);
+
+        // Animate metrics on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.metric-card, .section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Gauge animation on load
+        window.addEventListener('load', () => {
+            const gaugeFill = document.querySelector('.gauge-fill');
+            setTimeout(() => {
+                gaugeFill.style.width = '46.2%';
+            }, 500);
+        });
+
+        // Timeline hover effects
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                this.style.boxShadow = '0 8px 24px rgba(156, 163, 175, 0.3)';
+            });
+            item.addEventListener('mouseleave', function () {
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Send height to parent iframe for auto-resize
+        function sendHeight() {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ frameHeight: height }, '*');
+        }
+
+        // Send height on load and after data loads
+        window.addEventListener('load', () => {
+            setTimeout(sendHeight, 500);
+            setTimeout(sendHeight, 1000);
+            setTimeout(sendHeight, 2000);
+        });
+
+        // Send height on resize
+        window.addEventListener('resize', sendHeight);
+    </script>
+</body>
+</html>
