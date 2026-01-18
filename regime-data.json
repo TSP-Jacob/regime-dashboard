@@ -1,46 +1,46 @@
 {
-  "lastUpdated": "2025-12-22",
+  "lastUpdated": "2026-01-18",
   "currentRegime": {
     "name": "Goldilocks Growth",
-    "confidence": 46.2,
-    "interpretation": "Bifurcated economy with moderate confidence. Manufacturing in recession (ISM 47.3) while services sector holds up (ISM 51.9). Fed cutting rates but real rates still restrictive. Cautiously bullish environment."
+    "confidence": 50.0,
+    "interpretation": "Economic conditions show expanding manufacturing (ISM 98.1787) while services sector holds up (ISM 52.1). Fed cutting rates with controlled inflation (Core PCE 2.52%). Cautiously bullish environment with balanced growth."
   },
   "metrics": {
     "gdp": {
-      "value": 2.1,
-      "change": "positive",
-      "label": "Moderate Growth"
+      "value": 1.1,
+      "change": "neutral",
+      "label": "Weak Growth"
     },
     "corePCE": {
-      "value": 1.3,
-      "change": "positive",
-      "label": "Below Target"
+      "value": 2.52,
+      "change": "negative",
+      "label": "Near Target"
     },
     "fedFunds": {
-      "value": 3.62,
+      "value": 3.64,
       "change": "positive",
       "label": "Cutting Cycle"
     },
     "unemployment": {
-      "value": 4.6,
+      "value": 4.4,
       "change": "neutral",
       "label": "Stable"
     },
     "ismManufacturing": {
-      "value": 47.3,
-      "status": "contraction"
+      "value": 98.1787,
+      "status": "expansion"
     },
     "ismServices": {
-      "value": 51.9,
+      "value": 52.1,
       "status": "expansion"
     },
     "nfp": {
-      "value": 26,
+      "value": 0,
       "change": "negative",
       "label": "Weak Hiring"
     },
     "treasury10y": {
-      "value": 4.47,
+      "value": 4.17,
       "change": "neutral",
       "label": "Normal Curve"
     }
@@ -48,34 +48,93 @@
   "tradingGuidance": {
     "bias": "Cautiously Bullish",
     "biasColor": "teal",
-    "positionSizing": "Moderate (60-75%)",
+    "positionSizing": "Moderate to Full (75-100%)",
     "timeframe": "Swing & Intraday",
     "winRateTarget": "55-60%",
     "strategies": [
-      {"text": "✓ Buy Dips", "type": "good"},
-      {"text": "✓ Take Breakouts", "type": "good"},
-      {"text": "✓ Reclaim VWAP", "type": "good"},
-      {"text": "✗ Fade Strength", "type": "avoid"},
-      {"text": "✗ Aggressive Shorts", "type": "avoid"}
+      {
+        "text": "\u2713 Buy Dips",
+        "type": "good"
+      },
+      {
+        "text": "\u2713 Take Breakouts",
+        "type": "good"
+      },
+      {
+        "text": "\u2713 Reclaim VWAP",
+        "type": "good"
+      },
+      {
+        "text": "\u2717 Fade Strength",
+        "type": "avoid"
+      },
+      {
+        "text": "\u2717 Aggressive Shorts",
+        "type": "avoid"
+      }
     ]
   },
   "warnings": [
-    "ISM Services drops below 50 (manufacturing already weak)",
-    "Unemployment rises >0.5% in 3 months (Sahm Rule)",
-    "Jobless Claims spike above 300K sustained",
-    "Core PCE re-accelerates above 3%"
+    "Core PCE above target (currently 2.52%)"
   ],
   "timeline": [
-    {"period": "2022 Q1-Q4", "regime": "Inflation Scare", "color": "orange"},
-    {"period": "2023 Q1-Q2", "regime": "Inflation Scare", "color": "orange"},
-    {"period": "2023 Q3-Q4", "regime": "Goldilocks", "color": "teal"},
-    {"period": "2024 Q1-Q4", "regime": "Goldilocks", "color": "teal"},
-    {"period": "2025 Q4", "regime": "Goldilocks", "color": "teal", "current": true}
+    {
+      "period": "2022 Q1-Q4",
+      "regime": "Inflation Scare",
+      "color": "orange"
+    },
+    {
+      "period": "2023 Q1-Q2",
+      "regime": "Inflation Scare",
+      "color": "orange"
+    },
+    {
+      "period": "2023 Q3-Q4",
+      "regime": "Goldilocks",
+      "color": "teal"
+    },
+    {
+      "period": "2024 Q1-Q4",
+      "regime": "Goldilocks",
+      "color": "teal"
+    },
+    {
+      "period": "2025 Q4",
+      "regime": "Goldilocks",
+      "color": "teal",
+      "current": true
+    }
   ],
   "heatmap": {
-    "title": "Last 12 Months - Goldilocks Regime Score",
-    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    "scores": [5, 5, 7, 7, 8, 7, 7, 6, 6, 5, 6, 6],
-    "year": 2025
+    "title": "Last 12 Months - Regime Score",
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "scores": [
+      5,
+      5,
+      7,
+      7,
+      8,
+      7,
+      7,
+      6,
+      6,
+      5,
+      6,
+      6
+    ],
+    "year": 2026
   }
 }
